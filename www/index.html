@@ -1,0 +1,58 @@
+<!doctype html>
+<html>
+  <head>
+    <script type="module" src="index.js"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+      }
+
+      fm-input-standards input {
+        width: 3em;
+      }
+
+      select {
+        margin-bottom: 0.5em;
+      }
+
+      .table {
+        display: grid;
+        gap: 1px;
+      }
+
+      .table > .row {
+        display: contents;
+      }
+
+      .table > .row > .attr {
+        border-radius: 0.2em;
+        text-align: center;
+      }
+
+      .table > .row.header {
+        font-weight: bold;
+        text-align: center;
+      }
+
+      .table > .row > * {
+        display: grid;
+        padding: 0.2em;
+      }
+
+      .table > .row.header > * {
+        margin-bottom: 0.5em;
+      }
+
+      .table > .row > .center {
+        text-align: center;
+      }
+
+      .table > .row > *:not(.spacer) {
+        background-color: #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <fm-app />
+  </body>
+</html>

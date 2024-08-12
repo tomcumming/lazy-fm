@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "target": "esnext",
+    "module": "esnext",
+    "noEmit": true
+  },
+  "include": [
+    "js/**/*.ts"
+  ]
+}

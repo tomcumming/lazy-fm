@@ -1,0 +1,7 @@
+/node_modules
+/output
+/.spago
+.purs-repl
+/.psci_modules
+/www/lazy-fm.js
+/www/ps-lazy-fm.js

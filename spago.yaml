@@ -1,0 +1,16 @@
+package:
+  name: lazy-fm
+  dependencies:
+    - console
+    - effect
+    - prelude
+    - argonaut
+  bundle:
+    module: Main
+    outfile: "www/ps-lazy-fm.js"
+    platform: browser
+    type: "module"
+workspace:
+  packageSet:
+    registry: 56.4.0
+  extraPackages: {}
