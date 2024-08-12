@@ -41,6 +41,7 @@ allRoles =
     , primary: Set.fromFoldable [ Aer, Cmd, Com, Han, Kic, Ref, Cnt, Pos, Agi ]
     , secondary: Set.fromFoldable [ OneV1, Thr, Ant, Dec ]
     }
+
   , { name: "Sweeper Keeper (Defend)"
     , group: SG.GK
     , positions: Pos.unsafeParse "GK"
@@ -59,8 +60,8 @@ allRoles =
     , primary: Set.fromFoldable [ Cmd, Kic, OneV1, Ref, Tro, Ant, Cmp, Cnt, Pos, Agi ]
     , secondary: Set.fromFoldable [ Aer, Com, Fir, Ecc, Han, Pas, Thr, Dec, Vis, Acc ]
     }
-  -- Defender
 
+  -- Defender
   , { name: "Ball Playing Defender (Defend)"
     , group: SG.Def
     , positions: Pos.unsafeParse "D"
@@ -98,7 +99,20 @@ allRoles =
     , primary: Set.fromFoldable [ Mar, Tck, Ant, Cnt, Dec, Pos, Pac ]
     , secondary: Set.fromFoldable [ Hea, Bra, Cmp, Jum, Str ]
     }
-  -- Complete Wingback (Support/Attack)
+
+  , { name: "Complete Wingback (Support)"
+    , group: SG.Def
+    , positions: Pos.unsafeParse "D (LR), DM (LR)"
+    , primary: Set.fromFoldable [ Cro, Dri, Tec, OtB, Tea, Wor, Acc, Sta ]
+    , secondary: Set.fromFoldable [ Fir, Mar, Pas, Tck, Ant, Dec, Fla, Pos, Agi, Bal, Pac ]
+    }
+  , { name: "Complete Wingback (Attack)"
+    , group: SG.Def
+    , positions: Pos.unsafeParse "D (LR), DM (LR)"
+    , primary: Set.fromFoldable [ Cro, Dri, Tec, Fla, OtB, Tea, Wor, Acc, Sta ]
+    , secondary: Set.fromFoldable [ Fir, Mar, Pas, Tck, Ant, Dec, Pos, Agi, Bal, Pac ]
+    }
+
   , { name: "Fullback (Defend)"
     , group: SG.Def
     , positions: Pos.unsafeParse "D (LR)"
@@ -117,12 +131,91 @@ allRoles =
     , primary: Set.fromFoldable [ Cro, Mar, Tck, Ant, Pos, Tea ]
     , secondary: Set.fromFoldable [ Dri, Fir, Pas, Tec, Cnt, Dec, OtB, Wor, Agi, Pac, Sta ]
     }
-  -- Inverted Fullback (Defend)
-  -- Inverted Wingback (Defend/Support/Attack)
-  -- Libero (Defend/Support)
-  -- No-nonsense Centerback (Defend/Stopper/Cover)
-  -- No-nonsense Fullback (Defend)
-  -- Wide Centerback (Defend/Support/Attack)
+
+  , { name: "Inverted Fullback (Defend)"
+    , group: SG.Def
+    , positions: Pos.unsafeParse "D (LR)"
+    , primary: Set.fromFoldable [ Hea, Mar, Tck, Pos, Str ]
+    , secondary: Set.fromFoldable [ Dri, Fir, Pas, Tec, Agg, Ant, Bra, Cmp, Cnt, Dec, Wor, Agi, Jum, Pac ]
+    }
+
+  , { name: "Inverted Wingback (Defend)"
+    , group: SG.Def
+    , positions: Pos.unsafeParse "D (LR), DM (LR)"
+    , primary: Set.fromFoldable [ Pas, Tck, Ant, Dec, Pos, Tea ]
+    , secondary: Set.fromFoldable [ Fir, Mar, Tec, Cmp, Cnt, OtB, Wor, Acc, Agi ]
+    }
+  , { name: "Inverted Wingback (Support)"
+    , group: SG.Def
+    , positions: Pos.unsafeParse "D (LR), DM (LR)"
+    , primary: Set.fromFoldable [ Fir, Pas, Tck, Cmp, Dec, Tea ]
+    , secondary: Set.fromFoldable [ Mar, Tec, Ant, Cnt, OtB, Pos, Vis, Wor, Acc, Agi, Sta ]
+    }
+  , { name: "Inverted Wingback (Attack)"
+    , group: SG.Def
+    , positions: Pos.unsafeParse "D (LR), DM (LR)"
+    , primary: Set.fromFoldable [ Fir, Pas, Tck, Tec, Cmp, Dec, OtB, Tea, Vis, Acc ]
+    , secondary: Set.fromFoldable [ Cro, Dri, Lon, Mar, Ant, Cnt, Fla, Pos, Wor, Agi, Pac, Sta ]
+    }
+
+  , { name: "Libero (Defend)"
+    , group: SG.Def
+    , positions: Pos.unsafeParse "D"
+    , primary: Set.fromFoldable [ Fir, Hea, Mar, Pas, Tck, Tec, Cmp, Dec, Pos, Tea, Jum, Str ]
+    , secondary: Set.fromFoldable [ Ant, Bra, Cnt, Pac, Sta ]
+    }
+  , { name: "Libero (Support)"
+    , group: SG.Def
+    , positions: Pos.unsafeParse "D"
+    , primary: Set.fromFoldable [ Fir, Hea, Mar, Pas, Tck, Tec, Cmp, Dec, Pos, Tea, Jum, Str ]
+    , secondary: Set.fromFoldable [ Dri, Ant, Bra, Cnt, Vis, Pac, Sta ]
+    }
+
+  , { name: "No-nonsence Centerback (Defend)"
+    , group: SG.Def
+    , positions: Pos.unsafeParse "D"
+    , primary: Set.fromFoldable [ Hea, Mar, Tck, Pos, Jum, Str ]
+    , secondary: Set.fromFoldable [ Agg, Ant, Bra, Cnt, Pac ]
+    }
+  , { name: "No-nonsence Centerback (Stopper)"
+    , group: SG.Def
+    , positions: Pos.unsafeParse "D"
+    , primary: Set.fromFoldable [ Hea, Tck, Agg, Bra, Pos, Jum, Str ]
+    , secondary: Set.fromFoldable [ Mar, Ant, Cnt ]
+    }
+  , { name: "No-nonsence Centerback (Cover)"
+    , group: SG.Def
+    , positions: Pos.unsafeParse "D"
+    , primary: Set.fromFoldable [ Mar, Tck, Ant, Cnt, Pos, Pac ]
+    , secondary: Set.fromFoldable [ Hea, Bra, Jum, Str ]
+    }
+
+  , { name: "No-nonsense Fullback (Defend)"
+    , group: SG.Def
+    , positions: Pos.unsafeParse "D (LR)"
+    , primary: Set.fromFoldable [ Mar, Tck, Ant, Pos, Str ]
+    , secondary: Set.fromFoldable [ Hea, Agg, Bra, Cnt, Tea ]
+    }
+
+  , { name: "Wide Centerback (Defend)"
+    , group: SG.Def
+    , positions: Pos.unsafeParse "D"
+    , primary: Set.fromFoldable [ Hea, Mar, Tck, Pos, Jum, Str ]
+    , secondary: Set.fromFoldable [ Dri, Fir, Pas, Tec, Agg, Ant, Bra, Cmp, Cnt, Dec, Wor, Agi, Pac ]
+    }
+  , { name: "Wide Centerback (Support)"
+    , group: SG.Def
+    , positions: Pos.unsafeParse "D"
+    , primary: Set.fromFoldable [ Dri, Hea, Mar, Tck, Pos, Jum, Pac, Str ]
+    , secondary: Set.fromFoldable [ Cro, Fir, Pas, Tec, Agg, Ant, Bra, Cmp, Cnt, Dec, OtB, Wor, Agi, Sta ]
+    }
+  , { name: "Wide Centerback (Attack)"
+    , group: SG.Def
+    , positions: Pos.unsafeParse "D"
+    , primary: Set.fromFoldable [ Cro, Dri, Hea, Mar, Tck, OtB, Jum, Pac, Sta, Str ]
+    , secondary: Set.fromFoldable [ Fir, Pas, Tec, Agg, Ant, Bra, Cmp, Cnt, Dec, Pos, Wor, Agi ]
+    }
+
   , { name: "Wingback (Defend)"
     , group: SG.Def
     , positions: Pos.unsafeParse "D (LR), DM (LR)"
@@ -143,13 +236,66 @@ allRoles =
     }
 
   -- Midfield
+  , { name: "Advanced Playmaker (Support)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "M, AM"
+    , primary: Set.fromFoldable [ Fir, Pas, Tec, Cmp, Dec, OtB, Tea, Vis ]
+    , secondary: Set.fromFoldable [ Dri, Ant, Fla, Agi ]
+    }
+  , { name: "Advanced Playmaker (Attack)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "M, AM"
+    , primary: Set.fromFoldable [ Fir, Pas, Tec, Cmp, Dec, OtB, Tea, Vis ]
+    , secondary: Set.fromFoldable [ Dri, Ant, Fla, Acc, Agi ]
+    }
 
-  -- Advanced Playmaker (Support/Attack)
-  -- Anchor (Defend)
-  -- Attacking Midfielder (Support/Attack)
-  -- Ball Winning Midfielder (Defend/Support/Attack)
-  -- Box to Box Midfielder (Support)
-  -- Carrilero (Support)
+  , { name: "Anchor (Defend)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "DM"
+    , primary: Set.fromFoldable [ Mar, Tck, Ant, Cnt, Dec, Pos ]
+    , secondary: Set.fromFoldable [ Cmp, Tea, Str ]
+    }
+
+  , { name: "Advanced Playmaker (Support)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "AM"
+    , primary: Set.fromFoldable [ Fir, Lon, Pas, Tec, Ant, Dec, Fla, OtB ]
+    , secondary: Set.fromFoldable [ Dri, Cmp, Vis, Agi ]
+    }
+  , { name: "Advanced Playmaker (Attack)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "AM"
+    , primary: Set.fromFoldable [ Dri, Fir, Lon, Pas, Tec, Ant, Dec, Fla, OtB ]
+    , secondary: Set.fromFoldable [ Fin, Cmp, Vis, Agi ]
+    }
+
+  , { name: "Ball Winning Midfielder (Defend)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "DM, M"
+    , primary: Set.fromFoldable [ Tck, Agg, Ant, Tea, Wor, Sta ]
+    , secondary: Set.fromFoldable [ Mar, Bra, Cnt, Pos, Agi, Pac, Str ]
+    }
+  , { name: "Ball Winning Midfielder (Support)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "DM, M"
+    , primary: Set.fromFoldable [ Tck, Agg, Ant, Tea, Wor, Sta ]
+    , secondary: Set.fromFoldable [ Mar, Pas, Bra, Cnt, Agi, Pac, Str ]
+    }
+
+  , { name: "Ball Winning Midfielder (Support)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "M"
+    , primary: Set.fromFoldable [ Pas, Tck, OtB, Tea, Wor, Sta ]
+    , secondary: Set.fromFoldable [ Dri, Fin, Fir, Lon, Tec, Agg, Ant, Cmp, Dec, Pos, Acc, Bal, Pac, Str ]
+    }
+
+  , { name: "Carrilero (Support)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "M"
+    , primary: Set.fromFoldable [ Fir, Pas, Tck, Dec, Pos, Tea, Sta ]
+    , secondary: Set.fromFoldable [ Tec, Ant, Cmp, Cnt, OtB, Vis, Wor ]
+    }
+
   , { name: "Central Midfielder (Defend)"
     , group: SG.Mid
     , positions: Pos.unsafeParse "M"
@@ -168,23 +314,185 @@ allRoles =
     , primary: Set.fromFoldable [ Fir, Pas, Dec, OtB ]
     , secondary: Set.fromFoldable [ Lon, Tck, Tec, Ant, Cmp, Tea, Vis, Wor, Acc, Sta ]
     }
-  -- Deeplying Playmaker (Defend/Support)
-  -- Defensive Midfielder (Defend/Support)
-  -- Defensive Winger (Defend/Support)
-  -- Enganche (Support)
-  -- Halfback (Defend)
-  -- Inside Forward (Support/Attack)
-  -- Inverted Winger (Support/Attack)
-  -- Mezzala (Support/Attack)
-  -- Raumdeuter (Attack)
-  -- Regista (Support)
-  -- Roaming Playmaker (Support)
-  -- Segundo Volante (Support/Attack)
-  -- Shadow Striker (Attack)
-  -- Wide Midfielder (Defend/Support/Attack)
-  -- Wide Playmaker (Support/Attack)
-  -- Wide Target Forward (Support/Attack)
-  -- Winger (Support/Attack)
+
+  , { name: "Deeplying Playmaker (Defend)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "DM, M"
+    , primary: Set.fromFoldable [ Fir, Pas, Tec, Cmp, Dec, Tea, Vis ]
+    , secondary: Set.fromFoldable [ Tck, Ant, Pos, Bal ]
+    }
+  , { name: "Deeplying Playmaker (Support)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "DM, M"
+    , primary: Set.fromFoldable [ Fir, Pas, Tec, Cmp, Dec, Tea, Vis ]
+    , secondary: Set.fromFoldable [ Ant, OtB, Pos, Bal ]
+    }
+
+  , { name: "Defensive Midfielder (Defend)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "DM"
+    , primary: Set.fromFoldable [ Tck, Ant, Cnt, Pos, Tea ]
+    , secondary: Set.fromFoldable [ Mar, Pas, Agg, Cmp, Dec, Wor, Sta, Str ]
+    }
+  , { name: "Defensive Midfielder (Support)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "DM"
+    , primary: Set.fromFoldable [ Tck, Ant, Cnt, Pos, Tea ]
+    , secondary: Set.fromFoldable [ Fir, Mar, Pas, Agg, Cmp, Dec, Wor, Sta, Str ]
+    }
+
+  , { name: "Defensive Winger (Defend)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "M (LR)"
+    , primary: Set.fromFoldable [ Tec, Ant, OtB, Pos, Tea, Wor, Sta ]
+    , secondary: Set.fromFoldable [ Cro, Dri, Fir, Mar, Tck, Agg, Cnt, Dec, Acc ]
+    }
+  , { name: "Defensive Winger (Support)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "M (LR)"
+    , primary: Set.fromFoldable [ Cro, Tec, OtB, Tea, Wor, Sta ]
+    , secondary: Set.fromFoldable [ Dri, Fir, Mar, Pas, Tck, Agg, Ant, Cmp, Cnt, Dec, Pos, Acc ]
+    }
+
+  , { name: "Enganche (Support)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "AM"
+    , primary: Set.fromFoldable [ Fir, Pas, Tec, Cmp, Dec, Vis ]
+    , secondary: Set.fromFoldable [ Dri, Ant, Fla, OtB, Tea, Agi ]
+    }
+
+  , { name: "Halfback (Defend)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "DM"
+    , primary: Set.fromFoldable [ Mar, Tck, Ant, Cmp, Cnt, Dec, Pos, Tea ]
+    , secondary: Set.fromFoldable [ Fir, Pas, Agg, Bra, Wor, Jum, Sta, Str ]
+    }
+
+  , { name: "Inside Forward (Support)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "AM (LR)"
+    , primary: Set.fromFoldable [ Dri, Fin, Fir, Tec, Acc, Agi ]
+    , secondary: Set.fromFoldable [ Lon, Pas, Ant, Cmp, Fla, Vis, Wor, Bal, Pac, Sta ]
+    }
+  , { name: "Inside Forward (Attack)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "AM (LR)"
+    , primary: Set.fromFoldable [ Dri, Fin, Fir, Tec, Ant, OtB, Acc, Agi ]
+    , secondary: Set.fromFoldable [ Lon, Pas, Cmp, Fla, Wor, Bal, Pac, Sta ]
+    }
+
+  , { name: "Inverted Winger (Support)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "M (LR), AM (LR)"
+    , primary: Set.fromFoldable [ Cro, Dri, Pas, Tec, Acc, Agi ]
+    , secondary: Set.fromFoldable [ Fir, Lon, Cmp, Dec, OtB, Vis, Wor, Bal, Pac, Sta ]
+    }
+  , { name: "Inverted Winger (Attack)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "M (LR), AM (LR)"
+    , primary: Set.fromFoldable [ Cro, Dri, Pas, Tec, Acc, Agi ]
+    , secondary: Set.fromFoldable [ Fir, Lon, Ant, Cmp, Dec, Fla, OtB, Vis, Wor, Bal, Pac, Sta ]
+    }
+
+  , { name: "Mezzala (Support)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "M"
+    , primary: Set.fromFoldable [ Pas, Tec, Dec, OtB, Wor, Acc ]
+    , secondary: Set.fromFoldable [ Dri, Fir, Lon, Tck, Ant, Cmp, Vis, Bal, Sta ]
+    }
+  , { name: "Mezzala (Attack)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "M"
+    , primary: Set.fromFoldable [ Dri, Pas, Tec, Dec, OtB, Vis, Wor, Acc ]
+    , secondary: Set.fromFoldable [ Fin, Fir, Lon, Ant, Fla, Bal, Sta ]
+    }
+
+  , { name: "Raumdeuter (Attack)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "AM (LR)"
+    , primary: Set.fromFoldable [ Fin, Ant, Cmp, Cnt, Dec, OtB, Bal ]
+    , secondary: Set.fromFoldable [ Fir, Tec, Wor, Acc, Sta ]
+    }
+
+  , { name: "Regista (Support)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "DM"
+    , primary: Set.fromFoldable [ Fir, Pas, Tec, Cmp, Dec, Fla, OtB, Tea, Vis ]
+    , secondary: Set.fromFoldable [ Dri, Lon, Ant, Bal ]
+    }
+
+  , { name: "Roaming Playmaker (Support)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "DM, M"
+    , primary: Set.fromFoldable [ Fir, Pas, Tec, Ant, Cmp, Dec, OtB, Tea, Vis, Wor, Acc, Sta ]
+    , secondary: Set.fromFoldable [ Dri, Lon, Cnt, Pos, Agi, Bal, Pac ]
+    }
+
+  , { name: "Segundo Volante (Support)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "DM"
+    , primary: Set.fromFoldable [ Mar, Pas, Tck, OtB, Pos, Wor, Pac, Sta ]
+    , secondary: Set.fromFoldable [ Fin, Fir, Lon, Ant, Cmp, Cnt, Dec, Acc, Bal, Str ]
+    }
+  , { name: "Segundo Volante (Attack)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "DM"
+    , primary: Set.fromFoldable [ Fin, Lon, Pas, Tck, Ant, OtB, Pos, Wor, Pac, Sta ]
+    , secondary: Set.fromFoldable [ Fir, Mar, Cmp, Cnt, Dec, Acc, Bal, Str ]
+    }
+
+  , { name: "Shadow Striker (Attack)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "AM"
+    , primary: Set.fromFoldable [ Dri, Fin, Fir, Ant, Cmp, OtB, Acc ]
+    , secondary: Set.fromFoldable [ Pas, Tec, Cnt, Dec, Wor, Agi, Bal, Pac, Sta ]
+    }
+
+  , { name: "Wide Midfielder (Defend)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "M (LR)"
+    , primary: Set.fromFoldable [ Pas, Tck, Cnt, Dec, Pos, Tea, Wor ]
+    , secondary: Set.fromFoldable [ Cro, Fir, Mar, Tec, Ant, Cmp, Sta ]
+    }
+  , { name: "Wide Midfielder (Support)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "M (LR)"
+    , primary: Set.fromFoldable [ Pas, Tck, Dec, Tea, Wor, Sta ]
+    , secondary: Set.fromFoldable [ Cro, Fir, Tec, Ant, Cmp, Cnt, OtB, Pos, Vis ]
+    }
+  , { name: "Wide Midfielder (Attack)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "M (LR)"
+    , primary: Set.fromFoldable [ Cro, Fir, Pas, Dec, Tea, Wor, Sta ]
+    , secondary: Set.fromFoldable [ Tck, Tec, Ant, Cmp, OtB, Vis ]
+    }
+
+  , { name: "Wide Playmaker (Support)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "M (LR)"
+    , primary: Set.fromFoldable [ Fir, Pas, Tec, Cmp, Dec, Tea, Vis ]
+    , secondary: Set.fromFoldable [ Dri, OtB, Agi ]
+    }
+  , { name: "Wide Playmaker (Attack)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "M (LR)"
+    , primary: Set.fromFoldable [ Dri, Fir, Pas, Tec, Cmp, Dec, OtB, Tea, Vis ]
+    , secondary: Set.fromFoldable [ Ant, Fla, Acc, Agi ]
+    }
+
+  , { name: "Wide Target Forward (Support)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "AM (LR)"
+    , primary: Set.fromFoldable [ Hea, Bra, Tea, Jum, Str ]
+    , secondary: Set.fromFoldable [ Cro, Fir, Ant, OtB, Wor, Bal, Sta ]
+    }
+  , { name: "Wide Target Forward (Attack)"
+    , group: SG.Mid
+    , positions: Pos.unsafeParse "AM (LR)"
+    , primary: Set.fromFoldable [ Hea, Bra, OtB, Jum, Str ]
+    , secondary: Set.fromFoldable [ Cro, Fin, Fir, Ant, Tea, Wor, Bal, Sta ]
+    }
+
   , { name: "Winger (Support)"
     , group: SG.Mid
     , positions: Pos.unsafeParse "M (LR), AM (LR)"
@@ -199,23 +507,72 @@ allRoles =
     }
 
   -- Attack
-
   , { name: "Advance Forward (Attack)"
     , group: SG.Att
     , positions: Pos.unsafeParse "ST"
     , primary: Set.fromFoldable [ Dri, Fin, Fir, Tec, Cmp, OtB, Acc ]
     , secondary: Set.fromFoldable [ Pas, Ant, Dec, Wor, Agi, Bal, Pac, Sta ]
     }
-  -- Complete Forward (Support/Attack)
-  -- Deeplying Forward (Support/Attack)
-  -- False Nine (Support)
+
+  , { name: "Complete Forward (Support)"
+    , group: SG.Att
+    , positions: Pos.unsafeParse "ST"
+    , primary: Set.fromFoldable [ Dri, Fir, Hea, Lon, Pas, Tec, Ant, Cmp, Dec, OtB, Vis, Acc, Agi, Str ]
+    , secondary: Set.fromFoldable [ Fin, Tea, Wor, Bal, Jum, Pac, Sta ]
+    }
+  , { name: "Complete Forward (Attack)"
+    , group: SG.Att
+    , positions: Pos.unsafeParse "ST"
+    , primary: Set.fromFoldable [ Dri, Fin, Fir, Hea, Tec, Ant, Cmp, OtB, Acc, Agi, Str ]
+    , secondary: Set.fromFoldable [ Lon, Pas, Dec, Tea, Vis, Wor, Bal, Jum, Pac, Sta ]
+    }
+
+  , { name: "Deeplying Forward (Support)"
+    , group: SG.Att
+    , positions: Pos.unsafeParse "ST"
+    , primary: Set.fromFoldable [ Fir, Pas, Tec, Cmp, Dec, OtB, Tea ]
+    , secondary: Set.fromFoldable [ Fin, Ant, Fla, Vis, Bal, Str ]
+    }
+  , { name: "Deeplying Forward (Attack)"
+    , group: SG.Att
+    , positions: Pos.unsafeParse "ST"
+    , primary: Set.fromFoldable [ Fir, Pas, Tec, Cmp, Dec, OtB, Tea ]
+    , secondary: Set.fromFoldable [ Dri, Fin, Ant, Fla, Vis, Bal, Str ]
+    }
+
+  , { name: "False Nine (Support)"
+    , group: SG.Att
+    , positions: Pos.unsafeParse "ST"
+    , primary: Set.fromFoldable [ Dri, Fir, Pas, Tec, Cmp, Dec, OtB, Vis, Acc, Agi ]
+    , secondary: Set.fromFoldable [ Fin, Ant, Fla, Tea, Bal ]
+    }
+
   , { name: "Poacher (Attack)"
     , group: SG.Att
     , positions: Pos.unsafeParse "ST"
     , primary: Set.fromFoldable [ Fin, Ant, Cmp, OtB ]
     , secondary: Set.fromFoldable [ Fir, Hea, Tec, Dec, Acc ]
     }
-  -- Pressing Forwards (Defend/Support/Attack)
+
+  , { name: "Pressing Forward (Defend)"
+    , group: SG.Att
+    , positions: Pos.unsafeParse "ST"
+    , primary: Set.fromFoldable [ Agg, Ant, Bra, Dec, Tea, Wor, Acc, Pac, Sta ]
+    , secondary: Set.fromFoldable [ Fir, Cmp, Cnt, Agi, Bal, Str ]
+    }
+  , { name: "Pressing Forward (Support)"
+    , group: SG.Att
+    , positions: Pos.unsafeParse "ST"
+    , primary: Set.fromFoldable [ Agg, Ant, Bra, Dec, Tea, Wor, Acc, Pac, Sta ]
+    , secondary: Set.fromFoldable [ Fir, Pas, Cmp, Cnt, OtB, Agi, Bal, Str ]
+    }
+  , { name: "Pressing Forward (Attack)"
+    , group: SG.Att
+    , positions: Pos.unsafeParse "ST"
+    , primary: Set.fromFoldable [ Agg, Ant, Bra, OtB, Tea, Wor, Acc, Pac, Sta ]
+    , secondary: Set.fromFoldable [ Fin, Fir, Cmp, Cnt, Dec, Agi, Bal, Str ]
+    }
+
   , { name: "Target Forward (Support)"
     , group: SG.Att
     , positions: Pos.unsafeParse "ST"
@@ -228,7 +585,12 @@ allRoles =
     , primary: Set.fromFoldable [ Fin, Hea, Bra, Cmp, OtB, Bal, Jum, Str ]
     , secondary: Set.fromFoldable [ Fir, Agg, Ant, Dec, Tea ]
     }
-  -- Trequartista (Attack)
 
+  , { name: "Trequartista (Attack)"
+    , group: SG.Att
+    , positions: Pos.unsafeParse "AM, ST"
+    , primary: Set.fromFoldable [ Dri, Fir, Pas, Tec, Cmp, Dec, Fla, OtB, Vis, Acc ]
+    , secondary: Set.fromFoldable [ Fin, Ant, Agi, Bal ]
+    }
   ]
 
