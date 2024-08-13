@@ -19,8 +19,10 @@ function renderPlayerRow(
           else {
             const style = `background-color: hsl(${best.score * 100}, 100%, 75%)`;
 
+            const scoreLabel = Math.min(0.99, best.score).toFixed(2).slice(2);
+
             return `<div class="center" style="${style}" title="${best.role}">
-              ${best.score.toFixed(2).slice(2)}
+              ${scoreLabel}
             </div>`;
           }
         })

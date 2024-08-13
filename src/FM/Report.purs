@@ -2,6 +2,7 @@ module FM.Report (generate, Report) where
 
 import Prelude
 
+import Control.Monad.State as State
 import Data.Argonaut as J
 import Data.Array as Array
 import Data.Array.NonEmpty as NE
@@ -10,8 +11,12 @@ import Data.Foldable (class Foldable, maximumBy)
 import Data.List as List
 import Data.Map as Map
 import Data.Maybe (Maybe(..))
+import Data.Number (pow)
+import Data.Ord.Down as Ord
 import Data.Set as Set
-import Data.Tuple (Tuple(..), snd)
+import Data.Traversable (traverse)
+import Data.Tuple (Tuple(..))
+import Data.Tuple as Tuple
 import FM.Attr (Attr)
 import FM.ImportData as Import
 import FM.Maths (Normal, mean, weightedMean, zscore, zscorePercentile)
@@ -153,7 +158,7 @@ generateBestPositions = map go
         (_.canPlay >>> Set.member pos)
         roles
         # (Map.toUnfoldable :: _ -> Array _)
-        # maximumBy (comparing (snd >>> _.score))
+        # maximumBy (comparing (Tuple.snd >>> _.score))
     Tuple c { role: roleName, score: playerRole.score } # Just
 
 attrStandardsForGroup
@@ -167,18 +172,29 @@ attrStandardsForGroup stds sg = map
   )
   stds
 
--- TODO we want to give more weight to the lowest scores
 scorePlayerRoleAttributes
   :: Map.Map Attr Normal
   -> Map.Map Attr (Tuple Number Number)
   -> Number
-scorePlayerRoleAttributes attrStandards roleAttrs = weightedMean weightedScores
+scorePlayerRoleAttributes attrStandards roleAttrs = weightedMean adjustedScores
   where
+  weightedScores :: NE.NonEmptyArray (Tuple Number Number)
   weightedScores = Map.intersectionWith go attrStandards roleAttrs
     # NE.fromFoldable
     # case _ of
         Nothing -> unsafeCrashWith "No attributes"
         Just xs -> xs
+    # NE.sortWith Tuple.fst
+
+  -- The first score is double the weight of the last, with fast decay
+  adjustedScores :: NE.NonEmptyArray (Tuple Number Number)
+  adjustedScores = traverse adjustScore weightedScores
+    # (\mx -> State.evalState mx 0.0)
+
+  adjustScore :: Tuple Number Number -> State.State Number (Tuple Number Number)
+  adjustScore (Tuple s w) = State.state $ \ws -> Tuple
+    (Tuple s (w * (1.0 + 1.0 / pow 2.0 ws)))
+    (ws + w)
 
   go :: Normal -> Tuple Number Number -> Tuple Number Number
   go normal (Tuple s w) = Tuple (zscore normal s) w

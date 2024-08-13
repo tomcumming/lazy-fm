@@ -12,18 +12,19 @@ module FM.Maths
 import Prelude
 
 import Data.Array.NonEmpty (fromFoldable1)
-import Data.Foldable (length, sum)
+import Data.Foldable (foldl, length, sum)
 import Data.Int (toNumber)
 import Data.Number (exp, pi, pow, sqrt, sqrt2)
-import Data.Semigroup.Foldable (class Foldable1, foldl1)
+import Data.Semigroup.Foldable (class Foldable1)
 import Data.Tuple (Tuple(..))
 
 type Normal = { mean :: Number, stdev :: Number }
 
 weightedMean :: forall f. Foldable1 f => f (Tuple Number Number) -> Number
 weightedMean =
-  foldl1
-    (\(Tuple s1 w1) (Tuple s2 w2) -> Tuple (s1 + s2) (w1 + w2))
+  foldl
+    (\(Tuple ps pw) (Tuple s w) -> Tuple (ps + s * w) (pw + w))
+    (Tuple 0.0 0.0)
     >>> (\(Tuple s w) -> s / w)
 
 mean :: forall f. Foldable1 f => f Number -> Number
@@ -37,9 +38,12 @@ weightedStdev xs =
   where
   m = weightedMean xs
   sd =
-    foldl1
-      ( \(Tuple s1 w1) (Tuple s2 w2) -> Tuple (s1 + pow (s2 - m) 2.0) (w1 + w2)
+    foldl
+      ( \(Tuple ps pw) (Tuple s w) -> Tuple
+          (ps + w * pow (s - m) 2.0)
+          (pw + w)
       )
+      (Tuple 0.0 0.0)
       xs
       # (\(Tuple s w) -> s / w)
       # sqrt
