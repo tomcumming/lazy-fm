@@ -27,7 +27,8 @@ type MaxAndAvg = { max :: Number, avg :: Number }
 type StandardsForPos = Map.Map Attr MaxAndAvg
 
 type PlayerData =
-  { name :: String
+  { uid :: String
+  , name :: String
   , positions :: Pos.Positions
   , attrs :: Map.Map Attr Number
   }
@@ -63,6 +64,7 @@ decodePlayerRow
   :: Json
   -> Either J.JsonDecodeError PlayerData
 decodePlayerRow = J.decodeJObject >=> \obj -> do
+  uid <- J.getField obj "UID"
   name <- J.getField obj "Name"
 
   positions <- J.getField obj "Position"
@@ -82,7 +84,7 @@ decodePlayerRow = J.decodeJObject >=> \obj -> do
         )
     # map Map.fromFoldable
 
-  pure { name, positions, attrs }
+  pure { uid, name, positions, attrs }
 
 decodePlayerData
   :: Json

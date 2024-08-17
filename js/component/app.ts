@@ -25,19 +25,17 @@ class App extends HTMLElement {
   refresh() {
     const wrapper = this.querySelector(":scope > .wrapper");
     if (wrapper instanceof HTMLElement) {
-      switch (window.location.hash) {
-        case "#players":
-          wrapper.innerHTML = "<fm-players />";
-          break;
-        case "#import-players":
-          wrapper.innerHTML = "<fm-player-import />";
-          break;
-        case "#input-standards":
-          wrapper.innerHTML = "<fm-input-standards />";
-          break;
-        default:
-          console.error("Unknown hash route:", window.location.hash);
-          break;
+      if (window.location.hash === "#players") {
+        wrapper.innerHTML = "<fm-players />";
+      } else if (window.location.hash === "#import-players") {
+        wrapper.innerHTML = "<fm-player-import />";
+      } else if (window.location.hash === "#input-standards") {
+        wrapper.innerHTML = "<fm-input-standards />";
+      } else if (window.location.hash.startsWith("#player-details/")) {
+        const uid = window.location.hash.slice("#player-details/".length);
+        wrapper.innerHTML = `<fm-player-details data-uid="${uid}" />`;
+      } else {
+        console.error(`Unhandled route:`, window.location.hash);
       }
     }
   }

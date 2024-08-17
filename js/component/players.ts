@@ -2,6 +2,13 @@ import * as DB from "../db";
 import { generateReports } from "../lazy-fm";
 import { BestPosition } from "../ps-lazy-fm";
 
+export function renderScore(score: number): { txt: string; colour: string } {
+  return {
+    colour: `hsl(${score * 100}, 100%, 75%)`,
+    txt: Math.min(0.99, score).toFixed(2).slice(2),
+  };
+}
+
 function renderPlayerRow(
   groups: [string, string[]][],
   bestPosition: BestPosition,
@@ -17,9 +24,8 @@ function renderPlayerRow(
           const best = roleMap.get(r)?.get(c);
           if (best === undefined) return `<div></div>`;
           else {
-            const style = `background-color: hsl(${best.score * 100}, 100%, 75%)`;
-
-            const scoreLabel = Math.min(0.99, best.score).toFixed(2).slice(2);
+            const { txt: scoreLabel, colour } = renderScore(best.score);
+            const style = `background-color: ${colour}`;
 
             return `<div class="center" style="${style}" title="${best.role}">
               ${scoreLabel}
@@ -35,8 +41,10 @@ function renderPlayerRow(
     })
     .join("\n");
 
+  const detailLink = `#player-details/${bestPosition.uid}`;
+
   return `<div class="row">
-      <div>${bestPosition.name}</div>
+      <div><a href="${detailLink}">${bestPosition.name}</a></div>
       ${groupCells}
     </div>`;
 }

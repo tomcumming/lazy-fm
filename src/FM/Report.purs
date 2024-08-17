@@ -12,7 +12,6 @@ import Data.List as List
 import Data.Map as Map
 import Data.Maybe (Maybe(..))
 import Data.Number (pow)
-import Data.Ord.Down as Ord
 import Data.Set as Set
 import Data.Traversable (traverse)
 import Data.Tuple (Tuple(..))
@@ -32,12 +31,14 @@ type AttrStandards =
 
 type PlayerRole =
   { canPlay :: Pos.Positions
+  , group :: SG.StandardsGroup
   , score :: Number
   , attrs :: Map.Map Attr (Tuple Number Number)
   }
 
 type PlayerWithRoles =
   { name :: String
+  , uid :: String
   , roles :: Map.Map String PlayerRole
   }
 
@@ -48,6 +49,7 @@ type PlayerBestPosition =
 
 type PlayerPositions =
   { name :: String
+  , uid :: String
   , positions :: Map.Map Pos.Rw (Map.Map Pos.Cl PlayerBestPosition)
   }
 
@@ -61,11 +63,14 @@ generate
   :: Map.Map SG.StandardsGroup Import.StandardsForPos
   -> Array Import.PlayerData
   -> Report
-generate inStds inPlayers = Report { standards, playerRoles, bestPositions }
+generate inStds inPlayers = Report
+  { standards
+  , playerRoles
+  , bestPositions: generateBestPositions playerRoles
+  }
   where
   standards = generateStandards inStds
   playerRoles = generatePlayerRoles standards inPlayers
-  bestPositions = generateBestPositions playerRoles
 
 generateStandards
   :: Map.Map SG.StandardsGroup Import.StandardsForPos
@@ -100,8 +105,9 @@ generatePlayerRoles
 generatePlayerRoles attrStandards = map goPlayer
   where
   goPlayer :: Import.PlayerData -> PlayerWithRoles
-  goPlayer { name, positions, attrs } =
-    { name
+  goPlayer { uid, name, positions, attrs } =
+    { uid
+    , name
     , roles: map (goRole positions attrs) allRoles
         # Map.fromFoldable
     }
@@ -109,6 +115,7 @@ generatePlayerRoles attrStandards = map goPlayer
   goRole :: Pos.Positions -> Map.Map Attr Number -> Role -> Tuple String PlayerRole
   goRole poss attrs role = Tuple role.name
     { canPlay: Set.filter (Pos.canPlay role.positions) poss
+    , group: role.group
     , score
     , attrs: roleAttrs
     }
@@ -123,8 +130,9 @@ generateBestPositions
 generateBestPositions = map go
   where
   go :: PlayerWithRoles -> PlayerPositions
-  go { name, roles } =
+  go { uid, name, roles } =
     { name
+    , uid
     , positions:
         [ { row: Pos.GK, cols: [ Pos.C ] }
         , { row: Pos.D, cols: [ Pos.L, Pos.C, Pos.R ] }
