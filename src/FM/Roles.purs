@@ -238,13 +238,13 @@ allRoles =
   -- Midfield
   , { name: "Advanced Playmaker (Support)"
     , group: SG.Mid
-    , positions: Pos.unsafeParse "M, AM"
+    , positions: Pos.unsafeParse "M, AM (LCR)"
     , primary: Set.fromFoldable [ Fir, Pas, Tec, Cmp, Dec, OtB, Tea, Vis ]
     , secondary: Set.fromFoldable [ Dri, Ant, Fla, Agi ]
     }
   , { name: "Advanced Playmaker (Attack)"
     , group: SG.Mid
-    , positions: Pos.unsafeParse "M, AM"
+    , positions: Pos.unsafeParse "M, AM (LCR)"
     , primary: Set.fromFoldable [ Fir, Pas, Tec, Cmp, Dec, OtB, Tea, Vis ]
     , secondary: Set.fromFoldable [ Dri, Ant, Fla, Acc, Agi ]
     }
@@ -256,13 +256,13 @@ allRoles =
     , secondary: Set.fromFoldable [ Cmp, Tea, Str ]
     }
 
-  , { name: "Advanced Playmaker (Support)"
+  , { name: "Attacking Midfielder (Support)"
     , group: SG.Mid
     , positions: Pos.unsafeParse "AM"
     , primary: Set.fromFoldable [ Fir, Lon, Pas, Tec, Ant, Dec, Fla, OtB ]
     , secondary: Set.fromFoldable [ Dri, Cmp, Vis, Agi ]
     }
-  , { name: "Advanced Playmaker (Attack)"
+  , { name: "Attacking Midfielder (Attack)"
     , group: SG.Mid
     , positions: Pos.unsafeParse "AM"
     , primary: Set.fromFoldable [ Dri, Fir, Lon, Pas, Tec, Ant, Dec, Fla, OtB ]
@@ -282,7 +282,7 @@ allRoles =
     , secondary: Set.fromFoldable [ Mar, Pas, Bra, Cnt, Agi, Pac, Str ]
     }
 
-  , { name: "Ball Winning Midfielder (Support)"
+  , { name: "Box to Box Midfielder (Support)"
     , group: SG.Mid
     , positions: Pos.unsafeParse "M"
     , primary: Set.fromFoldable [ Pas, Tck, OtB, Tea, Wor, Sta ]
@@ -588,9 +588,8 @@ allRoles =
 
   , { name: "Trequartista (Attack)"
     , group: SG.Att
-    , positions: Pos.unsafeParse "AM, ST"
+    , positions: Pos.unsafeParse "AM (LCR), ST"
     , primary: Set.fromFoldable [ Dri, Fir, Pas, Tec, Cmp, Dec, Fla, OtB, Vis, Acc ]
     , secondary: Set.fromFoldable [ Fin, Ant, Agi, Bal ]
     }
   ]
-
