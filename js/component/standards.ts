@@ -1,11 +1,6 @@
 import * as DB from "../db";
 import { dataTypes } from "../lazy-fm";
 
-export type AttributeStandard = {
-  avg: number;
-  max: number;
-};
-
 export class InputStandards extends HTMLElement {
   constructor() {
     super();
@@ -32,13 +27,12 @@ export class InputStandards extends HTMLElement {
     for (const input of Array.from(inputs)) {
       const posGroup = input.getAttribute("data-position-group") as string;
       const attr = input.getAttribute("data-attr") as string;
-      const typ = input.getAttribute("data-type") as keyof InputStandards;
       const val = parseFloat(input.value);
 
       if (posGroup && !isNaN(val)) {
         if (!data[posGroup]) data[posGroup] = {};
         if (!data[posGroup][attr]) data[posGroup][attr] = {};
-        data[posGroup][attr][typ] = val;
+        data[posGroup][attr] = val;
       }
     }
 
@@ -48,16 +42,15 @@ export class InputStandards extends HTMLElement {
   readValues() {
     const standards = DB.readStandards();
     for (const [posg, attrs] of Object.entries(standards)) {
-      for (const [attr, stds] of Object.entries(attrs)) {
-        for (const [std, v] of Object.entries(stds as object)) {
-          const elem = this.querySelector(
-            `input[data-position-group="${posg}"][data-attr="${attr}"][data-type="${std}"]`,
-          );
-          if (elem instanceof HTMLInputElement) {
-            elem.value = String(v);
-          } else {
-            console.error(`Can't find input for`, posg, attr, std);
-          }
+      for (const [attr, v] of Object.entries(attrs)) {
+        const std = "avg";
+        const elem = this.querySelector(
+          `input[data-position-group="${posg}"][data-attr="${attr}"][data-type="${std}"]`,
+        );
+        if (elem instanceof HTMLInputElement) {
+          elem.value = String(v);
+        } else {
+          console.error(`Can't find input for`, posg, attr, std);
         }
       }
     }
@@ -74,7 +67,6 @@ const attrRowsHtml = dataTypes.standardGroupAttrs
     const attrRow = (attr: string) => `<tr>
       <td>${attrNames[attr]}</td>
       <td>${attr}</td>
-      <td><input data-position-group="${pg}" data-attr="${attr}" data-type="max"></td>
       <td><input data-position-group="${pg}" data-attr="${attr}" data-type="avg"></td>
     </tr>
     `;
@@ -90,7 +82,6 @@ const initialHtml = `<form>
         <tr>
           <th>Name</th>
           <th>Code</th>
-          <th>Max</th>
           <th>Avg</th>
         </tr>
         ${attrRowsHtml}

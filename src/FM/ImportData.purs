@@ -1,7 +1,6 @@
 module FM.ImportData
   ( decodeLeagueStandards
   , decodePlayerData
-  , MaxAndAvg
   , StandardsForPos
   , PlayerData
   ) where
@@ -23,8 +22,7 @@ import FM.Position as Pos
 import FM.StandardsGroup as SG
 import Foreign.Object as FO
 
-type MaxAndAvg = { max :: Number, avg :: Number }
-type StandardsForPos = Map.Map Attr MaxAndAvg
+type StandardsForPos = Map.Map Attr Number
 
 type PlayerData =
   { uid :: String
@@ -35,11 +33,10 @@ type PlayerData =
 
 parseAttrRow
   :: Tuple String Json
-  -> Either J.JsonDecodeError (Tuple Attr MaxAndAvg)
-parseAttrRow (Tuple k v) = do
-  attr <- J.decodeJson (J.fromString k)
-  maxAndAvg <- J.decodeJson v
-  Tuple attr maxAndAvg # pure
+  -> Either J.JsonDecodeError (Tuple Attr Number)
+parseAttrRow (Tuple k v) = Tuple
+  <$> J.decodeJson (J.fromString k)
+  <*> J.decodeJson v
 
 parseStandardsRow
   :: Tuple String Json

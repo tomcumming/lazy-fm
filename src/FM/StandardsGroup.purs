@@ -15,7 +15,6 @@ import Data.Enum.Generic (genericPred, genericSucc)
 import Data.Generic.Rep (class Generic)
 import Data.Map as Map
 import Data.Maybe (maybe)
-import Data.Set as Set
 import Data.Tuple (Tuple(..))
 import FM.Attr (Attr(..))
 
@@ -61,14 +60,14 @@ sgNamesMap = (upFromIncluding bottom :: Array _)
   # map (\sg -> Tuple sg (sgName sg))
   # Map.fromFoldable
 
-standardGroupAttrs :: Map.Map StandardsGroup (Set.Set Attr)
+standardGroupAttrs :: Map.Map StandardsGroup (Array Attr)
 standardGroupAttrs =
   Map.fromFoldable
     [ (Tuple GK [ Kic, Ref, Han, Aer, Cmd, OneV1, Thr, Agi ])
     , (Tuple Def [ Tck, Hea, Jum, Mar, Pos, Str, Pac, Acc ])
     , (Tuple Mid [ Pas, Lon, Vis, Sta, Tea, Tck, Tec, Dec ])
     , (Tuple Att [ Fin, Lon, Hea, Jum, Ant, OtB, Pac, Acc ])
-    ] # map Set.fromFoldable
+    ]
 
 instance sgDecode :: J.DecodeJson StandardsGroup where
   decodeJson json = J.decodeJson json

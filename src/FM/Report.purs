@@ -81,9 +81,12 @@ generateStandards inStds =
     (upFromIncluding bottom :: Array _)
     # Map.fromFoldable
   where
+  -- We used to use the max to aproximate 95% but now we just assume 95% is
+  -- `0.8 * x` which seems to fit at lower leagues and should be less noisy
+  -- and less bother to input
   crudeStandards :: Map.Map SG.StandardsGroup (Map.Map Attr Normal)
   crudeStandards = inStds
-    <#> map (\{ max, avg } -> { mean: avg, stdev: (max - avg) / 2.0 })
+    <#> map (\avg -> { mean: avg, stdev: avg * 0.1 })
 
   completeGuessOthers = crudeStandards
     # Map.values
