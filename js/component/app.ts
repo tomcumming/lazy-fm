@@ -11,6 +11,7 @@ class App extends HTMLElement {
         <a href="#input-standards">Input Division Standards</a>
         <a href="#import-players">Import Player Data</a>
         <a href="#players">Players Report</a>
+        <a href="#roles">Role</a>
       </nav>
       <div class="wrapper"></div>
     `;
@@ -31,6 +32,15 @@ class App extends HTMLElement {
         wrapper.innerHTML = "<fm-player-import />";
       } else if (window.location.hash === "#input-standards") {
         wrapper.innerHTML = "<fm-input-standards />";
+      } else if (window.location.hash.startsWith("#roles")) {
+        const roleId = window.location.hash.startsWith("#roles/")
+          ? window.decodeURIComponent(
+              window.location.hash.slice("#roles/".length),
+            )
+          : undefined;
+        const roleAttr = roleId === undefined ? "" : `data-role="${roleId}"`;
+        console.log({ roleId, roleAttr });
+        wrapper.innerHTML = `<fm-roles ${roleAttr} />`;
       } else if (window.location.hash.startsWith("#player-details/")) {
         const uid = window.location.hash.slice("#player-details/".length);
         wrapper.innerHTML = `<fm-player-details data-uid="${uid}" />`;
